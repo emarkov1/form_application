@@ -1,0 +1,31 @@
+{
+  "name": "form_application",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server --mode development --open",
+    "build": "webpack --mode production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emarkov1/form_application.git"
+  },
+  "keywords": [
+    "js",
+    "form",
+    "application"
+  ],
+  "author": "Evgenii Markov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/emarkov1/form_application/issues"
+  },
+  "homepage": "https://github.com/emarkov1/form_application#readme",
+  "devDependencies": {
+    "html-webpack-plugin": "^4.5.0",
+    "webpack": "^5.10.1",
+    "webpack-cli": "^4.2.0",
+    "webpack-dev-server": "^3.11.0"
+  }
+}
