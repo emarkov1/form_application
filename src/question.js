@@ -19,6 +19,27 @@ export class Question {
       .then(Question.renderList());
   }
 
+  static fetch(token) {
+    if (!token) {
+      return Promise.resolve(`<p class="error">You don't have a token`);
+    }
+    return fetch(
+      `https://form-app-6d33b-default-rtdb.firebaseio.com/questions.json?auth=${token}`
+    )
+      .then((response) => response.json())
+      .then((questions) => {
+        if (questions.error) {
+          return `<p class="error">${questions.error}</p>`;
+        }
+        return response
+          ? Object.keys(questions).map((key) => ({
+              ...questions[key],
+              id: key,
+            }))
+          : [];
+      });
+  }
+
   static renderList() {
     const questions = getQuestionsFromLocalStorage();
     const html = questions.length

@@ -1,16 +1,39 @@
+import { authWithEmailAndPassword, getAuthForm } from './auth';
 import { Question } from './question';
 import './styles.css';
-import { isValid } from './utils';
+import { createModal, isValid } from './utils';
 
 const form = document.getElementById('form');
 const input = form.querySelector('#question-input');
 const button = form.querySelector('#submit');
+const modalBtn = document.getElementById('modal-btn');
 
 window.addEventListener('load', Question.renderList());
+modalBtn.addEventListener('click', openModal);
 form.addEventListener('submit', submitFormHandler);
 input.addEventListener('input', () => {
   button.disabled = !isValid(input.value);
 });
+
+function openModal() {
+  createModal('authorization', getAuthForm());
+  document
+    .getElementById('auth-form')
+    .addEventListener('submit', authFormHandler, { once: true });
+}
+
+function authFormHandler(e) {
+  e.preventDefault();
+  const email = e.target.querySelector('#email').value;
+  const password = e.target.querySelector('#password').value;
+  authWithEmailAndPassword(email, password).then((token) => {
+    return Question.fetch(token).then(renderModalAfterAuth);
+  });
+}
+
+function renderModalAfterAuth(content) {
+  console.log(content);
+}
 
 function submitFormHandler(e) {
   e.preventDefault();
