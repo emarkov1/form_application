@@ -1,3 +1,4 @@
+import { Question } from './question';
 import './styles.css';
 import { isValid } from './utils';
 
@@ -13,17 +14,17 @@ input.addEventListener('input', () => {
 function submitFormHandler(e) {
   e.preventDefault();
   if (isValid(input.value)) {
-    const question = {
+    const quest = {
       text: input.value.trim(),
       date: new Date().toJSON(),
     };
 
     button.disabled = true;
     // async request to a server
-    console.log('question', question);
-
-    input.value = '';
-    input.className = '';
-    button.disabled = false;
+    Question.create(quest).then(() => {
+      input.value = '';
+      input.className = '';
+      button.disabled = false;
+    });
   }
 }
