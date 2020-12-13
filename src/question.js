@@ -28,7 +28,7 @@ export class Question {
     )
       .then((response) => response.json())
       .then((questions) => {
-        if (questions.error) {
+        if (questions && questions.error) {
           return `<p class="error">${questions.error}</p>`;
         }
         return questions
@@ -47,6 +47,12 @@ export class Question {
       : '<div class="mui--text-headline">No questions at this moment</div>';
     const list = document.getElementById('list');
     list.innerHTML = html;
+  }
+
+  static listToHTML(questions) {
+    return questions.length
+      ? `<ol>${questions.map((q) => `<li>${q.text}</li>`).join('')}</ol>`
+      : '<p>no questions</p>';
   }
 }
 function addToLocalStorage(question) {

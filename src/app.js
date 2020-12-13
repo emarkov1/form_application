@@ -36,7 +36,11 @@ function authFormHandler(e) {
 }
 
 function renderModalAfterAuth(content) {
-  console.log(content);
+  if (typeof content === 'string') {
+    createModal('error', content);
+  } else {
+    createModal('List of queestions', Question.listToHTML(content));
+  }
 }
 
 function submitFormHandler(e) {
