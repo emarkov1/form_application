@@ -24,10 +24,14 @@ function openModal() {
 
 function authFormHandler(e) {
   e.preventDefault();
+  const btn = e.target.querySelector('button');
   const email = e.target.querySelector('#email').value;
   const password = e.target.querySelector('#password').value;
+  btn.disabled = true;
   authWithEmailAndPassword(email, password).then((token) => {
-    return Question.fetch(token).then(renderModalAfterAuth);
+    return Question.fetch(token)
+      .then(renderModalAfterAuth)
+      .then(() => (btn.disabled = false));
   });
 }
 

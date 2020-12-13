@@ -31,7 +31,7 @@ export class Question {
         if (questions.error) {
           return `<p class="error">${questions.error}</p>`;
         }
-        return response
+        return questions
           ? Object.keys(questions).map((key) => ({
               ...questions[key],
               id: key,
